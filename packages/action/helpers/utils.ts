@@ -86,14 +86,6 @@ export function createSummary(changes: Change[], summaryLimit: number, isLegacyC
     addChangesToSummary('Safe', safeChanges);
   }
 
-  summary.push(
-    [
-      '',
-      '___',
-      `Looking for more advanced tool? Try [GraphQL Hive](https://graphql-hive.com)!`,
-    ].join('\n'),
-  );
-
   return summary.join('\n');
 }
 
