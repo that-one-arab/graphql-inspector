@@ -41,6 +41,7 @@ export async function run() {
   const approveLabel: string = core.getInput('approve-label') || 'approved-breaking-change';
   const rulesList = getInputAsArray('rules') || [];
   const onUsage = core.getInput('onUsage');
+  const overridePrRef = castToBoolean(core.getInput('override-pr-ref'));
 
   const octokit = github.getOctokit(token);
 
@@ -91,7 +92,7 @@ export async function run() {
 
   // Different lengths mean some rules were resolved to undefined
   if (rules.length !== rulesList.length) {
-    return core.setFailed("Some rules weren't recognised");
+    return core.setFailed("Some rules weren't recognized");
   }
 
   let config;
@@ -115,7 +116,7 @@ export async function run() {
 
     const baseRef = pullRequest.base?.ref;
 
-    if (baseRef) {
+    if (baseRef && !overridePrRef) {
       schemaRef = baseRef;
       core.info(`EXPERIMENTAL - Using ${baseRef} as base schema ref`);
     }
