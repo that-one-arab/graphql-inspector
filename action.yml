@@ -24,6 +24,7 @@ inputs:
 
       * Ref is needed where 'endpoint' is not defined
       * Can be URL to the GraphQL API - should represent the "after" schema. Available only if 'endpoint' is defined. Has to start with http(s).
+      * If the action ran on a pull request trigger, THE REF YOU PROVIDED WILL ALWAYS BE OVERRIDDEN TO THE PULL REQUEST'S REF!!!
     required: true
   endpoint:
     description: |
@@ -51,6 +52,13 @@ inputs:
       Used only when the `considerUsage` rule is provided, otherwise this field is ignored.
 
       Should be a path to a JS file as described in https://the-guild.dev/graphql/inspector/docs/essentials/diff#considerusage
+    required: false
+  override-pr-ref:
+    description: |
+      In a case where the action runs on a pull request trigger, the pull request ref will always override the ref you provided.
+
+      Set this to true if you want your provided ref to override the pull request ref. Defaults to false
+
     required: false
 
 outputs:
